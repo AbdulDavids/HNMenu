@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		96E581652D4EB8D800D36C14 /* HNMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HNMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		96E581652D4EB8D800D36C14 /* HNMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = HNMenu.app; path = /Users/abdul/Developer/projects/HNMenu/build/Debug/HNMenu.app; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -33,16 +33,7 @@
 			isa = PBXGroup;
 			children = (
 				96E581672D4EB8D800D36C14 /* HNMenu */,
-				96E581662D4EB8D800D36C14 /* Products */,
 			);
-			sourceTree = "<group>";
-		};
-		96E581662D4EB8D800D36C14 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				96E581652D4EB8D800D36C14 /* HNMenu.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -95,7 +86,7 @@
 			mainGroup = 96E5815C2D4EB8D800D36C14;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 96E581662D4EB8D800D36C14 /* Products */;
+			productRefGroup = 96E5815C2D4EB8D800D36C14;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
