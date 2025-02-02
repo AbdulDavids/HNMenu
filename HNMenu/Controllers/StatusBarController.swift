@@ -24,7 +24,7 @@ class StatusBarController: NSObject, ObservableObject, NSMenuDelegate {
         super.init()
 
         if let button = statusItem.button {
-            button.image = NSImage(systemSymbolName: "newspaper.fill", accessibilityDescription: "HackerNews")
+            button.image = NSImage(systemSymbolName: "newspaper", accessibilityDescription: "HackerNews")
             button.action = #selector(togglePopover(_:))
             button.target = self
 
@@ -56,11 +56,11 @@ class StatusBarController: NSObject, ObservableObject, NSMenuDelegate {
     private func createRightClickMenu() -> NSMenu {
         let menu = NSMenu()
         
-        let refreshItem = NSMenuItem(title: "Refresh", action: #selector(refreshNews), keyEquivalent: "r")
+        let refreshItem = NSMenuItem(title: "Refresh", action: #selector(refreshNews), keyEquivalent: "")
         refreshItem.target = self
         menu.addItem(refreshItem)
 
-        let openHNItem = NSMenuItem(title: "Open Hacker News", action: #selector(openHackerNews), keyEquivalent: "o")
+        let openHNItem = NSMenuItem(title: "Open HN", action: #selector(openHackerNews), keyEquivalent: "")
         openHNItem.target = self
         menu.addItem(openHNItem)
 
@@ -69,6 +69,8 @@ class StatusBarController: NSObject, ObservableObject, NSMenuDelegate {
         let settingsItem = NSMenuItem(title: "Settings", action: #selector(openSettings), keyEquivalent: ",")
         settingsItem.target = self
         menu.addItem(settingsItem)
+        
+        menu.addItem(NSMenuItem.separator()) // Divider
 
         let quitItem = NSMenuItem(title: "Quit", action: #selector(quitApp), keyEquivalent: "q")
         quitItem.target = self
