@@ -16,9 +16,9 @@ struct FeedSelectorView: View {
                 Text(feed.displayName)
             }
         }
-        .pickerStyle(SegmentedPickerStyle()) // ✅ Native macOS segment style
-        .padding(.horizontal, 8) // ✅ Slightly wider horizontal padding for balance
-        .padding(.top, 6) // ✅ Added spacing above for better alignment
-        .padding(.bottom, 4) // ✅ Keeps it visually balanced
+        .pickerStyle(SegmentedPickerStyle())
+        .padding(.horizontal, 8)
+        .padding(.top, 6)
+        .padding(.bottom, 4) 
     }
 }

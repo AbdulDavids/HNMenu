@@ -36,6 +36,6 @@ class HackerNewsService {
         return URLSession.shared.dataTaskPublisher(for: url)
             .map { $0.data }
             .decode(type: HackerNewsItem.self, decoder: JSONDecoder())
-            .catch { _ in Just(HackerNewsItem(id: id, title: "Error loading", url: nil, by: "Unknown", score: 0, time: 0)) }            .eraseToAnyPublisher()
+            .catch { _ in Just(HackerNewsItem(id: id, title: "Error loading", url: nil, by: "Unknown", score: 0, time: 0)) }.eraseToAnyPublisher()
     }
 }

@@ -28,7 +28,6 @@ class StatusBarController: NSObject, ObservableObject, NSMenuDelegate {
             button.action = #selector(togglePopover(_:))
             button.target = self
 
-            // 🔥 Enable right-click menu
             button.menu = createRightClickMenu()
             button.sendAction(on: [.leftMouseUp, .rightMouseUp])
         }
@@ -37,10 +36,9 @@ class StatusBarController: NSObject, ObservableObject, NSMenuDelegate {
     @objc func togglePopover(_ sender: AnyObject?) {
         if let event = NSApp.currentEvent {
             if event.type == .rightMouseUp {
-                // Right click: Show the menu instead of the popover
                 statusItem.menu = createRightClickMenu()
-                statusItem.button?.performClick(nil) // Show menu immediately
-                statusItem.menu = nil // Reset so left-click works normally
+                statusItem.button?.performClick(nil)
+                statusItem.menu = nil
             } else {
                 // Left click: Show popover
                 if popover.isShown {
@@ -64,13 +62,13 @@ class StatusBarController: NSObject, ObservableObject, NSMenuDelegate {
         openHNItem.target = self
         menu.addItem(openHNItem)
 
-        menu.addItem(NSMenuItem.separator()) // Divider
+        menu.addItem(NSMenuItem.separator())
 
         let settingsItem = NSMenuItem(title: "Settings", action: #selector(openSettings), keyEquivalent: ",")
         settingsItem.target = self
         menu.addItem(settingsItem)
         
-        menu.addItem(NSMenuItem.separator()) // Divider
+        menu.addItem(NSMenuItem.separator())
 
         let quitItem = NSMenuItem(title: "Quit", action: #selector(quitApp), keyEquivalent: "q")
         quitItem.target = self
@@ -103,16 +101,16 @@ class StatusBarController: NSObject, ObservableObject, NSMenuDelegate {
             )
             window.contentViewController = hostingController
             window.center()
-            window.isReleasedWhenClosed = false // ✅ Prevents window from being destroyed
-            window.standardWindowButton(.miniaturizeButton)?.isHidden = true // Hide minimize button
-            window.standardWindowButton(.zoomButton)?.isHidden = true // Hide maximize button
+            window.isReleasedWhenClosed = false
+            window.standardWindowButton(.miniaturizeButton)?.isHidden = true
+            window.standardWindowButton(.zoomButton)?.isHidden = true
 
             settingsWindowController = NSWindowController(window: window)
         }
 
         settingsWindowController?.showWindow(nil)
         settingsWindowController?.window?.makeKeyAndOrderFront(nil)
-        NSApp.activate(ignoringOtherApps: true) // ✅ Keeps the menu bar app active
+        NSApp.activate(ignoringOtherApps: true) 
     }
 
     @objc private func quitApp() {

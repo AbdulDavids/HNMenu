@@ -11,6 +11,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var statusBarController: StatusBarController?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-        statusBarController = StatusBarController() // ✅ Now initializes at the right time
+        statusBarController = StatusBarController()
     }
 }

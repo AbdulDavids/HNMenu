@@ -1,3 +1,10 @@
+//
+//  HackerNewsItemView.swift
+//  HNMenu
+//
+//  Created by Abdul Baari Davids on 2025/02/02.
+//
+
 import SwiftUI
 
 struct HackerNewsItemView: View {
@@ -7,7 +14,7 @@ struct HackerNewsItemView: View {
     @AppStorage("showAuthor") private var showAuthor = true
     @AppStorage("showUpvotes") private var showUpvotes = true
 
-    @State private var isHovered = false // ✅ Tracks hover state
+    @State private var isHovered = false
 
     var formattedTime: String {
         TimeFormatter.timeAgo(from: article.time ?? 0)
@@ -54,12 +61,12 @@ struct HackerNewsItemView: View {
         .padding()
         .background(
             VisualEffectView(material: .windowBackground, blendingMode: .behindWindow)
-                .opacity(isHovered ? 0.85 : 1.0) // ✅ Slightly fade background on hover
+                .opacity(isHovered ? 0.85 : 1.0)
         )
         .cornerRadius(10)
-        .shadow(radius: isHovered ? 6 : 4) // ✅ Increase shadow on hover
-        .scaleEffect(isHovered ? 1.03 : 1.0) // ✅ Slight scale-up effect
-        .animation(.easeInOut(duration: 0.2), value: isHovered) // ✅ Smooth animation
+        .shadow(radius: isHovered ? 6 : 4)
+        .scaleEffect(isHovered ? 1.03 : 1.0)
+        .animation(.easeInOut(duration: 0.2), value: isHovered)
         .onHover { hovering in
             withAnimation {
                 isHovered = hovering

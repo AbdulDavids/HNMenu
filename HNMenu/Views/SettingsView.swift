@@ -1,3 +1,9 @@
+//
+//  SettingsView.swift
+//  HNMenu
+//
+//  Created by Abdul Baari Davids on 2025/02/02.
+//
 import SwiftUI
 
 struct SettingsView: View {
@@ -11,7 +17,6 @@ struct SettingsView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            // Auto Refresh Section
             HStack {
                 Text("Auto Refresh Interval")
                     .foregroundStyle(.secondary)
@@ -25,20 +30,19 @@ struct SettingsView: View {
                 .pickerStyle(.menu)
             }
             
-            // Display Options Section
             VStack(alignment: .leading, spacing: 6) {
                 Text("Display Options")
                     .foregroundStyle(.secondary)
-                    .font(.headline)    
+                    .font(.headline)
                 
                 VStack(spacing: 4) {
                     SettingsToggleRow(title: "Author", isOn: $showAuthor)
-                    SettingsToggleRow(title: "Upvotes", isOn: $showUpvotes)
+                    SettingsToggleRow(title: "Updoots", isOn: $showUpvotes)
                     SettingsToggleRow(title: "Time Posted", isOn: $showTimePosted)
                 }
             }
             
-            // Version Info
+            
             HStack {
                 Text("Version")
                     .foregroundStyle(.secondary)
@@ -49,8 +53,8 @@ struct SettingsView: View {
             
             Spacer()
             
-            // Made By Section
-            Text("Made with 💻 by Abdul Davids")
+            
+            Text("Made with ☕️ by Abdul Davids")
                 .font(.system(size: 11))
                 .foregroundStyle(.secondary)
                 .frame(maxWidth: .infinity, alignment: .center)
@@ -58,8 +62,7 @@ struct SettingsView: View {
                     NSWorkspace.shared.open(URL(string: "https://github.com/abduldavids")!)
                 }
             
-            // Quit Button
-            Button("Quit HNMenu") {
+            Button("Close HNMenu") {
                 NSApp.terminate(nil)
             }
             .buttonStyle(.borderedProminent)

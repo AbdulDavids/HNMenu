@@ -1,8 +1,17 @@
+//
+//  ContentView.swift
+//  HNMenu
+//
+//  Created by Abdul Baari Davids on 2025/02/02.
+//
+
 import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var viewModel = HackerNewsViewModel()
     
+    // funny loading messages
+    // TODO: use AI to generate these (just kidding... unless...)
     private let loadingMessages = [
         "Fetching the spiciest tech takes...",
         "Summoning the Hacker Gods...",
@@ -73,7 +82,6 @@ struct ContentView: View {
         }
     }
 
-    // 🔥 Change message every 3 seconds
     private func startMessageRotation() {
         currentMessage = loadingMessages.randomElement() ?? "Loading..."
         timer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { _ in
