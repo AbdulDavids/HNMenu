@@ -7,6 +7,8 @@ struct HackerNewsItemView: View {
     @AppStorage("showAuthor") private var showAuthor = true
     @AppStorage("showUpvotes") private var showUpvotes = true
 
+    @State private var isHovered = false // ✅ Tracks hover state
+
     var formattedTime: String {
         TimeFormatter.timeAgo(from: article.time ?? 0)
     }
@@ -50,15 +52,17 @@ struct HackerNewsItemView: View {
             }
         }
         .padding()
-        .background(VisualEffectView(material: .windowBackground, blendingMode: .behindWindow))
+        .background(
+            VisualEffectView(material: .windowBackground, blendingMode: .behindWindow)
+                .opacity(isHovered ? 0.85 : 1.0) // ✅ Slightly fade background on hover
+        )
         .cornerRadius(10)
-        .shadow(radius: 4)
-        .scaleEffect(1.05)
-        .opacity(0.95)
-        .animation(.easeInOut(duration: 0.2), value: true)
+        .shadow(radius: isHovered ? 6 : 4) // ✅ Increase shadow on hover
+        .scaleEffect(isHovered ? 1.03 : 1.0) // ✅ Slight scale-up effect
+        .animation(.easeInOut(duration: 0.2), value: isHovered) // ✅ Smooth animation
         .onHover { hovering in
             withAnimation {
-                _ = hovering
+                isHovered = hovering
             }
         }
     }
