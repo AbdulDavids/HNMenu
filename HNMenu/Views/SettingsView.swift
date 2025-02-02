@@ -17,6 +17,10 @@ struct SettingsView: View {
                     }
                 }
                 .pickerStyle(MenuPickerStyle())
+                .onChange(of: autoRefreshInterval) { // ✅ New macOS 14+ syntax
+                    print("🕒 User changed auto-refresh interval to \(autoRefreshInterval) minutes")
+                    NotificationCenter.default.post(name: NSNotification.Name("RefreshIntervalChanged"), object: nil)
+                }
             }
 
             Section(header: Text("Display Options")) {

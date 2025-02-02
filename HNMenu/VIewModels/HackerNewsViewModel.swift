@@ -5,21 +5,29 @@ class HackerNewsViewModel: ObservableObject {
     @Published var articles: [HNFeedType: [HackerNewsItem]] = [:]
     @Published var selectedFeed: HNFeedType = .top
     @Published var isRefreshing: Bool = false
-    @Published var isLoading: Bool = true // ✅ Track initial load state
+    @Published var isLoading: Bool = true
 
     private var cancellables = Set<AnyCancellable>()
     private var timer: Timer?
-    
-    @AppStorage("autoRefreshInterval") private var refreshInterval: Int = 5 // ✅ Auto-updates when changed
+
+    @AppStorage("autoRefreshInterval") private var refreshInterval: Int = 5
 
     init() {
+        print("🔄 ViewModel initialized. Fetching initial stories...")
         preloadStories()
         startAutoRefresh()
+
         NotificationCenter.default.addObserver(self, selector: #selector(handleRefreshNotification), name: NSNotification.Name("RefreshNews"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshIntervalChanged), name: UserDefaults.didChangeNotification, object: nil)
     }
 
     @objc private func handleRefreshNotification() {
         preloadStories()
+    }
+
+    @objc private func refreshIntervalChanged() {
+        print("🕒 Auto-refresh interval changed to \(refreshInterval) minutes. Restarting timer...")
+        startAutoRefresh()
     }
 
     func preloadStories() {
@@ -48,7 +56,7 @@ class HackerNewsViewModel: ObservableObject {
     }
 
     func startAutoRefresh() {
-        timer?.invalidate() // ✅ Stop any existing timer before starting a new one
+        timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: TimeInterval(refreshInterval * 60), repeats: true) { _ in
             self.preloadStories()
         }
