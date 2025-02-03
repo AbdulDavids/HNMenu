@@ -1,3 +1,10 @@
+//
+//  HackerNewsItemView.swift
+//  HNMenu
+//
+//  Created by Abdul Baari Davids on 2025/02/02.
+//
+
 import SwiftUI
 
 struct HackerNewsItemView: View {
@@ -64,7 +71,7 @@ struct HackerNewsItemView: View {
                         .lineLimit(3)
                         .padding(.top, 10)
                         .scaleEffect(titleHovered ? 1.01 : 1.0) // Smooth pop effect
-                        .shadow(color: titleHovered ? Color.white.opacity(0.5) : Color.clear, radius: 2) // Glows when hovered
+                        .shadow(color: titleHovered ? Color.white.opacity(0.3) : Color.clear, radius: 2) // Glows when hovered
                         .animation(.easeInOut(duration: 0.2), value: titleHovered)
                         .onTapGesture {
                             NSWorkspace.shared.open(url)

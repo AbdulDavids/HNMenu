@@ -71,6 +71,7 @@ struct ContentView: View {
                 }
             } else {
                 ScrollView {
+                    Spacer()
                     VStack(spacing: 10) {
                         ForEach(viewModel.articles[viewModel.selectedFeed] ?? []) { article in
                             HackerNewsItemView(article: article)
