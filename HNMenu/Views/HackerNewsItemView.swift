@@ -1,10 +1,3 @@
-//
-//  HackerNewsItemView.swift
-//  HNMenu
-//
-//  Created by Abdul Baari Davids on 2025/02/02.
-//
-
 import SwiftUI
 
 struct HackerNewsItemView: View {
@@ -15,6 +8,7 @@ struct HackerNewsItemView: View {
     @AppStorage("showUpvotes") private var showUpvotes = true
 
     @State private var isHovered = false
+    @State private var titleHovered = false
 
     var formattedTime: String {
         TimeFormatter.timeAgo(from: article.time ?? 0)
@@ -38,37 +32,72 @@ struct HackerNewsItemView: View {
         return elements.isEmpty ? nil : elements.joined(separator: " • ")
     }
 
-    var body: some View {
-        VStack(spacing: 5) {
-            if let link = URL(string: "https://news.ycombinator.com/item?id=\(article.id)") {
-                Link(article.title, destination: link)
-                    .font(.system(size: 14, weight: .medium))
-                    .foregroundColor(.primary)
-                    .multilineTextAlignment(.center)
-                    .frame(maxWidth: 260, alignment: .center)
-                    .lineLimit(3)
-            }
+    var articleURL: URL? {
+        if let urlString = article.url, let url = URL(string: urlString) {
+            return url
+        }
+        return nil
+    }
 
-            if let info = infoText {
-                HStack(spacing: 5) {
+    var hnPostURL: URL {
+        URL(string: "https://news.ycombinator.com/item?id=\(article.id)")!
+    }
+
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 10)
+                .fill(Color(.windowBackgroundColor))
+                .shadow(radius: isHovered ? 8 : 3)
+                .opacity(isHovered ? 0.95 : 1.0)
+                .animation(.easeInOut(duration: 0.3), value: isHovered)
+                .onTapGesture {
+                    NSWorkspace.shared.open(hnPostURL)
+                }
+
+            VStack(spacing: 6) {
+                if let url = articleURL {
+                    Text(article.title)
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundColor(.primary)
+                        .multilineTextAlignment(.center)
+                        .frame(maxWidth: 260, alignment: .center)
+                        .lineLimit(3)
+                        .padding(.top, 10)
+                        .scaleEffect(titleHovered ? 1.01 : 1.0) // Smooth pop effect
+                        .shadow(color: titleHovered ? Color.white.opacity(0.5) : Color.clear, radius: 2) // Glows when hovered
+                        .animation(.easeInOut(duration: 0.2), value: titleHovered)
+                        .onTapGesture {
+                            NSWorkspace.shared.open(url)
+                        }
+                        .onHover { hovering in
+                            titleHovered = hovering
+                        }
+                } else {
+                    Text(article.title)
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundColor(.primary)
+                        .multilineTextAlignment(.center)
+                        .frame(maxWidth: 260, alignment: .center)
+                        .lineLimit(3)
+                        .padding(.top, 10)
+                        .onTapGesture {
+                            NSWorkspace.shared.open(hnPostURL)
+                        }
+                }
+
+                if let info = infoText {
                     Text(info)
                         .font(.system(size: 12))
                         .foregroundColor(.secondary)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.bottom, 10)
                 }
-                .frame(maxWidth: .infinity, alignment: .center)
             }
+            .padding()
         }
-        .padding()
-        .background(
-            VisualEffectView(material: .windowBackground, blendingMode: .behindWindow)
-                .opacity(isHovered ? 0.85 : 1.0)
-        )
-        .cornerRadius(10)
-        .shadow(radius: isHovered ? 6 : 4)
-        .scaleEffect(isHovered ? 1.03 : 1.0)
-        .animation(.easeInOut(duration: 0.2), value: isHovered)
+        .frame(width: 280)
         .onHover { hovering in
-            withAnimation {
+            withAnimation(.easeInOut(duration: 0.2)) {
                 isHovered = hovering
             }
         }

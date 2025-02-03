@@ -13,7 +13,7 @@ struct SettingsView: View {
     @AppStorage("showUpvotes") private var showUpvotes = true
     
     private let refreshIntervals = [1, 5, 10, 15, 30, 60]
-    private let appVersion = "1.0.0"
+    private let appVersion = "1.0.1"
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {

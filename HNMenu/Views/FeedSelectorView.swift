@@ -19,6 +19,6 @@ struct FeedSelectorView: View {
         .pickerStyle(SegmentedPickerStyle())
         .padding(.horizontal, 8)
         .padding(.top, 6)
-        .padding(.bottom, 4) 
+        .padding(.bottom, 6) 
     }
 }

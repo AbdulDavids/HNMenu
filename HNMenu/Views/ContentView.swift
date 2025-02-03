@@ -76,15 +76,17 @@ struct ContentView: View {
                             HackerNewsItemView(article: article)
                         }
                     }
-                    .padding()
+                    .frame(maxWidth: .infinity)
                 }
+                .frame(width: 300, height: 400)
+                .scrollIndicators(.never)
             }
         }
     }
 
     private func startMessageRotation() {
         currentMessage = loadingMessages.randomElement() ?? "Loading..."
-        timer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { _ in
             currentMessage = loadingMessages.randomElement() ?? "Loading..."
         }
     }
